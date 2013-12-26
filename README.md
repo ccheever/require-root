@@ -37,11 +37,12 @@ For more advanced usage, you can put JSON in your .root file instead of
 just leaving it empty, and configure where exactly the root is -- if 
 it isn't just in the same directory as your .root file, ex.
 
-    model.root:
+model.root:
     {"rootPath":"./model/"}
 
 Or
-    some-code-somewhere-totally-different-on-my-filesystem.root:
+
+some-code-somewhere-totally-different-on-my-filesystem.root:
     {"rootPath":"/absolute/path/to/somewhere/totally/different"}
 
 There is also an analog of require.resolve, so you can do
