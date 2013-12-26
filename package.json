@@ -18,5 +18,7 @@
   "bugs": {
     "url": "https://github.com/ccheever/require-root/issues"
   },
-  "homepage": "https://github.com/ccheever/require-root"
+  "homepage": "https://github.com/ccheever/require-root",
+  "dependencies": {
+  }
 }

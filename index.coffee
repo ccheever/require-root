@@ -9,7 +9,7 @@
 ##
 
 fs = require 'fs'
-winston = require 'winston'
+#winston = require 'winston'
 
 _ROOTS = {}
 
@@ -26,7 +26,7 @@ findRoot = (rootName) ->
       throw new Error "Never found .root file for '#{ rootName }'"
     relativePrefix = "../" + relativePrefix
 
-  winston.debug "rootPath for #{ rootName } is #{ rootPath }"
+  #winston.debug "rootPath for #{ rootName } is #{ rootPath }"
 
   rootPath
 
