@@ -39,8 +39,8 @@ requireRoot = (rootName) ->
 
     Ex.
       requireRoot = require './require-root'
-      requireNametag = requireRoot 'nametag-server'
-      model = requireNametag 'model'
+      requireMyProject = requireRoot 'my-project'
+      model = requireMyProject 'model'
 
     The advantage of this is that you can move files around within a 
     project and not worry about trying to get the right number 
