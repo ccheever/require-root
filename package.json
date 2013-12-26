@@ -1,6 +1,6 @@
 {
   "name": "require-root",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "A utility for dealing with relative require paths in a Node project",
   "main": "index.js",
   "scripts": {
