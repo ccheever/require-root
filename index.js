@@ -37,14 +37,19 @@
 
   requireRoot = function(rootName) {
     "Searches recursively up the directory structure of the filesystem\nlooking for a file named <rootName>.root and when that is found, \nestablishes that directory as the root of <rootName>; this function\nthen returns a wrapper around require that looks for things relative\nto that root directory\n\nEx.\n  requireRoot = require './require-root'\n  requireMyProject = requireRoot 'my-project'\n  model = requireMyProject 'model'\n\nThe advantage of this is that you can move files around within a \nproject and not worry about trying to get the right number \nof '../'s in front of your requires\n\nThere doesn't seem to be a totally standard way of doing stuff\nlike this in the Node community right now; everyone seems to roll\ntheir own.\n\nAn alternative -- and perhaps quite sensible -- approach would be to\nlook for a matching package.json file up the tree, but that would be \nharder to implement and take more time (though that shouldn't really \nmatter)\n";
-    var rootPath;
+    var rootPath, rr;
     if (_ROOTS[rootName] == null) {
       _ROOTS[rootName] = findRoot(rootName);
     }
     rootPath = _ROOTS[rootName];
-    return function(m) {
+    rr = function(m) {
       return require(rootPath + "/" + m);
     };
+    rr.resolve = function(m) {
+      "The analog of require.resolve for requireRoot";
+      return require.resolve(rootPath + "/" + m);
+    };
+    return rr;
   };
 
   requireRoot.__expose = {

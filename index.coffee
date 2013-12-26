@@ -9,7 +9,6 @@
 ##
 
 fs = require 'fs'
-#winston = require 'winston'
 
 _ROOTS = {}
 
@@ -26,7 +25,6 @@ findRoot = (rootName) ->
       throw new Error "Never found .root file for '#{ rootName }'"
     relativePrefix = "../" + relativePrefix
 
-  #winston.debug "rootPath for #{ rootName } is #{ rootPath }"
   contents = (fs.readFileSync rootFile).toString().trim()
 
   if contents.length > 0
@@ -35,14 +33,10 @@ findRoot = (rootName) ->
 
       if ((fileData.rootPath.charAt 0) == '/')
         # Absolute path
-        #console.log "Absolute path", rootPath, fileData.rootPath
         rootPath = fs.realpathSync fileData.rootPath
       else
         # Relative path
-        #console.log "Relative path", rootPath, fileData.rootPath
         rootPath = fs.realpathSync rootPath + "/" + fileData.rootPath
-    #else
-    #  console.log "No file content", rootPath
 
   rootPath
 
@@ -82,9 +76,17 @@ requireRoot = (rootName) ->
     _ROOTS[rootName] = findRoot rootName
   rootPath = _ROOTS[rootName]
   
-  (m) ->
+  rr = (m) ->
     #console.log "requiring", rootPath + "/" + m
     require rootPath + "/" + m
+
+  rr.resolve = (m) ->
+    """The analog of require.resolve for requireRoot"""
+
+    require.resolve rootPath + "/" + m
+
+  rr
+
 
 requireRoot.__expose = 
   _ROOTS: _ROOTS
