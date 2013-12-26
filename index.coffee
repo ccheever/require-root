@@ -27,6 +27,22 @@ findRoot = (rootName) ->
     relativePrefix = "../" + relativePrefix
 
   #winston.debug "rootPath for #{ rootName } is #{ rootPath }"
+  contents = (fs.readFileSync rootFile).toString().trim()
+
+  if contents.length > 0
+    fileData = JSON.parse contents
+    if fileData.rootPath?
+
+      if ((fileData.rootPath.charAt 0) == '/')
+        # Absolute path
+        #console.log "Absolute path", rootPath, fileData.rootPath
+        rootPath = fs.realpathSync fileData.rootPath
+      else
+        # Relative path
+        #console.log "Relative path", rootPath, fileData.rootPath
+        rootPath = fs.realpathSync rootPath + "/" + fileData.rootPath
+    #else
+    #  console.log "No file content", rootPath
 
   rootPath
 
@@ -67,6 +83,7 @@ requireRoot = (rootName) ->
   rootPath = _ROOTS[rootName]
   
   (m) ->
+    #console.log "requiring", rootPath + "/" + m
     require rootPath + "/" + m
 
 requireRoot.__expose = 

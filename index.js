@@ -8,7 +8,7 @@
 
   findRoot = function(rootName) {
     "Finds the root for a given rootName; see requireRoot below";
-    var relativePrefix, rootFile, rootPath;
+    var contents, fileData, relativePrefix, rootFile, rootPath;
     relativePrefix = "./";
     while (true) {
       rootPath = fs.realpathSync(relativePrefix);
@@ -20,6 +20,17 @@
         throw new Error("Never found .root file for '" + rootName + "'");
       }
       relativePrefix = "../" + relativePrefix;
+    }
+    contents = (fs.readFileSync(rootFile)).toString().trim();
+    if (contents.length > 0) {
+      fileData = JSON.parse(contents);
+      if (fileData.rootPath != null) {
+        if ((fileData.rootPath.charAt(0)) === '/') {
+          rootPath = fs.realpathSync(fileData.rootPath);
+        } else {
+          rootPath = fs.realpathSync(rootPath + "/" + fileData.rootPath);
+        }
+      }
     }
     return rootPath;
   };
