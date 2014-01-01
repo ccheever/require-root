@@ -19,6 +19,8 @@
     "url": "https://github.com/ccheever/require-root/issues"
   },
   "homepage": "https://github.com/ccheever/require-root",
-  "dependencies": {
+  "dependencies": {},
+  "devDependencies": {
+    "coffee-script": "~1.6.3"
   }
 }
