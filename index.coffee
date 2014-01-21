@@ -28,7 +28,11 @@ findRoot = (rootName) ->
   contents = (fs.readFileSync rootFile).toString().trim()
 
   if contents.length > 0
-    fileData = JSON.parse contents
+    try
+      fileData = JSON.parse contents
+    catch e
+      fileData = { rootPath: contents.trim() }
+
     if fileData.rootPath?
 
       if ((fileData.rootPath.charAt 0) == '/')

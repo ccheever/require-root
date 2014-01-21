@@ -1,3 +1,3 @@
 #!/usr/bin/env sh
 
-./node_modules/.bin/coffee index.coffee
+./node_modules/.bin/coffee -c index.coffee
